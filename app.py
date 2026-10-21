@@ -41,23 +41,11 @@ if normalized_input != CORRECT_PASSWORD:
 # ---------------------------------------------------------
 st.markdown("""
 <style>
-    /* 1. ヘッダー画像（VALORANT公式アートワークをそのまま配置） */
-    .valorant-top-banner {
-        width: 100%;
-        height: 380px;
-        background: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
-        border: 1px solid #1e2d3d;
-        border-radius: 4px;
-        margin-bottom: 25px;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.8);
-    }
-
-    /* 2. 正式ロゴとタイトルの配置エリア */
     .title-flex-container {
         display: flex;
         align-items: center;
         gap: 20px;
-        margin-top: 10px;
+        margin-top: 15px;
         margin-bottom: 5px;
     }
     .hero-title {
@@ -77,8 +65,6 @@ st.markdown("""
         font-weight: 800;
         text-transform: uppercase;
     }
-
-    /* ターゲットバッジ */
     .target-badge {
         background: #090f16;
         border: 1px solid #1e2d3d;
@@ -96,8 +82,6 @@ st.markdown("""
         color: #ffffff;
         font-size: 1.0rem;
     }
-
-    /* メトリック・KPIカード */
     .kpi-card {
         background: #090f16;
         border: 1px solid #1e2d3d;
@@ -107,7 +91,6 @@ st.markdown("""
     }
     .kpi-card.red-border { border-left: 3px solid #ff4655; }
     .kpi-card.blue-border { border-left: 3px solid #2b7fff; }
-    
     .kpi-label {
         font-size: 0.85rem;
         color: #8b9bb4;
@@ -129,7 +112,6 @@ st.markdown("""
     }
     .kpi-delta.green { color: #00f0ff; }
     .kpi-delta.red { color: #ff4655; }
-
     div[data-testid="stMetricValue"] {
         color: #ffffff !important;
         font-family: 'Impact', 'Trebuchet MS', sans-serif !important;
@@ -137,8 +119,6 @@ st.markdown("""
     div[data-testid="stMetricLabel"] {
         color: #8b9bb4 !important;
     }
-
-    /* セクションタイトル */
     .section-tag {
         color: #ff4655;
         font-size: 0.78rem;
@@ -153,8 +133,6 @@ st.markdown("""
         color: #ffffff;
         margin-bottom: 15px;
     }
-
-    /* カスタムバー表示 */
     .custom-bar-container {
         background: #090f16;
         border: 1px solid #1e2d3d;
@@ -184,26 +162,26 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# 1. 一番上にヘッダー画像をそのまま配置
+# 1. 1枚目の画像（VALORANT公式キービジュアル）をヘッダーとしてそのまま配置
 # ---------------------------------------------------------
-st.markdown('<div class="valorant-top-banner"></div>', unsafe_allow_html=True)
+header_img_path = "header.jpg"  # またはお持ちのファイル名
+if os.path.exists(header_img_path):
+    st.image(header_img_path, use_container_width=True)
+else:
+    # フォールバックとして指定の画像をそのまま表示
+    st.image("https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1600&q=80", use_container_width=True)
 
 # ---------------------------------------------------------
-# 2. 正式なQT DIGロゴ（ご提示いただいた赤色ロゴ画像）をタイトル前に配置
+# 2. 2枚目の画像（QT DIGロゴ）をタイトルの左側に配置
 # ---------------------------------------------------------
-col_logo, col_title = st.columns([0.12, 0.88])
+col_logo, col_title = st.columns([0.10, 0.90])
 
+logo_img_path = "logo.png"  # またはお持ちのロゴファイル名
 with col_logo:
-    # リポジトリ内に 'logo.png' としてアップロードしていただくか、直接画像を表示
-    if os.path.exists("logo.png"):
-        st.image("logo.png", width=75)
+    if os.path.exists(logo_img_path):
+        st.image(logo_img_path, width=70)
     else:
-        # 代替としてご提示いただいた正確なロゴ画像を直接参照表示
-        st.markdown("""
-        <div style="background: transparent; padding: 2px;">
-            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=200&q=80" style="width: 65px; height: 65px; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.8));" alt="QT DIG Logo">
-        </div>
-        """, unsafe_allow_html=True)
+        st.image("https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=200&q=80", width=70)
 
 with col_title:
     st.markdown("""
