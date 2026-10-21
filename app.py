@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import os
 
 # ページ基本設定
 st.set_page_config(
@@ -164,24 +163,16 @@ st.markdown("""
 # ---------------------------------------------------------
 # 1. 1枚目の画像（VALORANT公式キービジュアル）をヘッダーとしてそのまま配置
 # ---------------------------------------------------------
-header_img_path = "header.jpg"  # またはお持ちのファイル名
-if os.path.exists(header_img_path):
-    st.image(header_img_path, use_container_width=True)
-else:
-    # フォールバックとして指定の画像をそのまま表示
-    st.image("https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1600&q=80", use_container_width=True)
+st.image("https://raw.githubusercontent.com/thehouseoperationweb/valorant-analytics/main/header.jpg" if False else "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1600&q=80", use_container_width=True)
 
 # ---------------------------------------------------------
 # 2. 2枚目の画像（QT DIGロゴ）をタイトルの左側に配置
 # ---------------------------------------------------------
 col_logo, col_title = st.columns([0.10, 0.90])
 
-logo_img_path = "logo.png"  # またはお持ちのロゴファイル名
 with col_logo:
-    if os.path.exists(logo_img_path):
-        st.image(logo_img_path, width=70)
-    else:
-        st.image("https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=200&q=80", width=70)
+    # 2枚目の赤色ロゴ画像を表示
+    st.image("https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=200&q=80", width=65)
 
 with col_title:
     st.markdown("""
