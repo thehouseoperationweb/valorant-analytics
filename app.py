@@ -194,42 +194,4 @@ st.markdown("""
 # サイドバー設定
 st.sidebar.header("プレイヤー設定")
 riot_id = st.sidebar.text_input("Riot ID (名前)", value="Hust is so VLY")
-tag = st.sidebar.text_input("Tag (タグ)", value="Bang")
-region = st.sidebar.selectbox("リージョン", ["ap", "na", "eu", "kr"], index=0)
-
-if st.sidebar.button("データを取得・更新"):
-    st.cache_data.clear()
-
-# ターゲット表示
-st.markdown(f"""
-<div class="target-badge">
-    ANALYSIS TARGET &nbsp;&nbsp;<strong>{riot_id}#{tag}</strong> &nbsp;·&nbsp; {region.upper()}
-</div>
-""", unsafe_allow_html=True)
-
-# ---------------------------------------------------------
-# KPI概要 (3列カード)
-# ---------------------------------------------------------
-c1, c2, c3 = st.columns(3)
-
-with c1:
-    st.markdown("""
-    <div class="kpi-card red-border">
-        <div class="kpi-label">ファーストキル (FK) 時 勝率</div>
-        <div class="kpi-value">78.3%</div>
-        <div class="kpi-delta green">+27.1% vs 通常展開</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with c2:
-    st.markdown("""
-    <div class="kpi-card blue-border">
-        <div class="kpi-label">初落ち (FD) 時 カバー率</div>
-        <div class="kpi-value">62.2%</div>
-        <div class="kpi-delta red">目標 70% まで +7.8pt</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with c3:
-    st.markdown("""
-    <div class="kpi-card
+tag = st.sidebar.text_input
