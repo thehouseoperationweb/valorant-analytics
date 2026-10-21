@@ -40,7 +40,6 @@ if normalized_input != CORRECT_PASSWORD:
 # ---------------------------------------------------------
 st.markdown("""
 <style>
-    /* ヘッダー画像（VALORANT公式アートワークをそのまま・切り取りなしで配置） */
     .valorant-top-banner {
         width: 100%;
         height: 380px;
@@ -50,8 +49,6 @@ st.markdown("""
         margin-bottom: 25px;
         box-shadow: 0 8px 32px rgba(0,0,0,0.8);
     }
-
-    /* タイトルセクションのロゴ並び */
     .title-flex-container {
         display: flex;
         align-items: center;
@@ -76,8 +73,6 @@ st.markdown("""
         font-weight: 800;
         text-transform: uppercase;
     }
-
-    /* ターゲットバッジ */
     .target-badge {
         background: #090f16;
         border: 1px solid #1e2d3d;
@@ -95,8 +90,6 @@ st.markdown("""
         color: #ffffff;
         font-size: 1.0rem;
     }
-
-    /* メトリックカード（白抜き対応） */
     .kpi-card {
         background: #090f16;
         border: 1px solid #1e2d3d;
@@ -106,7 +99,6 @@ st.markdown("""
     }
     .kpi-card.red-border { border-left: 3px solid #ff4655; }
     .kpi-card.blue-border { border-left: 3px solid #2b7fff; }
-    
     .kpi-label {
         font-size: 0.85rem;
         color: #8b9bb4;
@@ -128,7 +120,6 @@ st.markdown("""
     }
     .kpi-delta.green { color: #00f0ff; }
     .kpi-delta.red { color: #ff4655; }
-
     div[data-testid="stMetricValue"] {
         color: #ffffff !important;
         font-family: 'Impact', 'Trebuchet MS', sans-serif !important;
@@ -136,8 +127,6 @@ st.markdown("""
     div[data-testid="stMetricLabel"] {
         color: #8b9bb4 !important;
     }
-
-    /* セクションタイトル */
     .section-tag {
         color: #ff4655;
         font-size: 0.78rem;
@@ -152,8 +141,6 @@ st.markdown("""
         color: #ffffff;
         margin-bottom: 15px;
     }
-
-    /* カスタムバー表示 */
     .custom-bar-container {
         background: #090f16;
         border: 1px solid #1e2d3d;
@@ -192,7 +179,6 @@ st.markdown('<div class="valorant-top-banner"></div>', unsafe_allow_html=True)
 # ---------------------------------------------------------
 st.markdown("""
 <div class="title-flex-container">
-    <!-- QT DIGのロゴ（背景切り抜き・透過） -->
     <svg width="55" height="55" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 2px 6px rgba(0,0,0,0.8));">
         <path d="M40 20H180V120H110V380H180V480H40V20Z" fill="#FF4655"/>
         <path d="M220 20H360V180H290V120H290V380H360V320H460V480H220V20Z" fill="#FF4655"/>
@@ -246,87 +232,4 @@ with c2:
 
 with c3:
     st.markdown("""
-    <div class="kpi-card red-border">
-        <div class="kpi-label">直近20試合 勝率</div>
-        <div class="kpi-value">65.0%</div>
-        <div class="kpi-delta green">800RR 到達ペース</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-st.write("")
-
-# ---------------------------------------------------------
-# SECTION 01 : FK / FD 相関分析
-# ---------------------------------------------------------
-st.markdown("""
-<div class="section-tag">SECTION 01 / OPENING DUEL</div>
-<div class="section-title">ファーストキル (FK) / ファーストデス (FD) 発生時のラウンド勝率</div>
-
-<div class="custom-bar-container">
-    <div class="bar-row">
-        <div class="bar-label-container">
-            <span style="color: #ff4655;">ファーストキル (FK) 獲得時</span>
-            <span style="color: #ffffff; font-weight: 800;">78.3%</span>
-        </div>
-        <div class="bar-track">
-            <div class="bar-fill-red" style="width: 78.3%;"></div>
-        </div>
-    </div>
-    <div class="bar-row">
-        <div class="bar-label-container">
-            <span style="color: #8b9bb4;">通常展開 (FK/FDなし)</span>
-            <span style="color: #ffffff; font-weight: 800;">51.2%</span>
-        </div>
-        <div class="bar-track">
-            <div class="bar-fill-gray" style="width: 51.2%;"></div>
-        </div>
-    </div>
-    <div class="bar-row">
-        <div class="bar-label-container">
-            <span style="color: #2b7fff;">ファーストデス (FD) 発生時</span>
-            <span style="color: #ffffff; font-weight: 800;">24.4%</span>
-        </div>
-        <div class="bar-track">
-            <div class="bar-fill-blue" style="width: 24.4%;"></div>
-        </div>
-    </div>
-</div>
-""", unsafe_allow_html=True)
-
-st.write("---")
-
-# ---------------------------------------------------------
-# SECTION 02 : アビリティ効率分析
-# ---------------------------------------------------------
-st.markdown("""
-<div class="section-tag">SECTION 02 / ABILITY UTILIZATION</div>
-<div class="section-title">アビリティ使用効率とラウンド獲得貢献</div>
-""", unsafe_allow_html=True)
-
-col_a, col_b = st.columns(2)
-with col_a:
-    st.write("▼ **スキル使用後の交戦勝率**")
-    df_ability = pd.DataFrame({
-        'アビリティ種別': ['メインスキル (C/Q)', 'シグネチャー (E)', 'アルティメット (X)'],
-        '発動時ラウンド勝率 (%)': [58.5, 64.2, 81.0],
-        '平均ダメージ貢献': [35.0, 52.0, 110.0]
-    })
-    st.dataframe(df_ability, use_container_width=True)
-
-with col_b:
-    st.write("▼ **サポートアビリティ / フラッシュ有効率**")
-    st.metric("味方カバーへの貢献率", "71.4%", "目標 75%")
-    st.metric("有効フラッシュ率 (敵目を奪う)", "42.8%", "改善推奨")
-
-st.write("---")
-
-# ---------------------------------------------------------
-# SECTION 03 : マネー別戦術分析
-# ---------------------------------------------------------
-st.markdown("""
-<div class="section-tag">SECTION 03 / ECONOMY & TACTICS</div>
-<div class="section-title">相手装備（マネー状況）別の交戦勝率分析</div>
-""", unsafe_allow_html=True)
-
-df_econ = pd.DataFrame({
-    '自軍装備状況
+    <div class="kpi-card
