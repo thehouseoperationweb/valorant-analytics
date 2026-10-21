@@ -9,15 +9,15 @@ st.set_page_config(
 )
 
 # ---------------------------------------------------------
-# 高級感・eSportsプロアナリティクスUI (CSS定義)
+# カスタムCSS（公式ビジュアルを活かしたeSportsプロ仕様ヘッダー）
 # ---------------------------------------------------------
 st.markdown("""
 <style>
-    /* 全体背景 */
+    /* 全体背景とフォント（サンセリフ系太字） */
     html, body, [data-testid="stAppViewContainer"] {
         background-color: #080d12 !important;
-        color: #ece8e1 !important;
-        font-family: 'Times New Roman', 'Shippori Mincho', 'Yu Mincho', serif !important;
+        color: #ffffff !important;
+        font-family: 'Trebuchet MS', 'Arial Black', sans-serif !important;
     }
 
     /* サイドバー */
@@ -26,82 +26,94 @@ st.markdown("""
         border-right: 1px solid #1e2d3d !important;
     }
 
-    /* ヘッダーカード */
-    .header-card {
-        background: linear-gradient(135deg, #0f1923 0%, #152230 100%);
+    /* VALORANT公式キービジュアルを組込んだカッコいいヒーローヘッダー */
+    .valorant-hero-header {
+        position: relative;
+        width: 100%;
+        height: 220px;
+        background: linear-gradient(90deg, #080d12 0%, rgba(8,13,18,0.85) 40%, rgba(255,70,85,0.2) 100%),
+                    url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
         border: 1px solid #1e2d3d;
-        border-left: 4px solid #ff4655;
+        border-left: 5px solid #ff4655;
         border-radius: 4px;
-        padding: 20px 25px;
-        margin-bottom: 20px;
+        padding: 30px 40px;
+        margin-bottom: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .hero-title-area {
         display: flex;
         align-items: center;
         gap: 20px;
     }
-    .header-title {
-        font-size: 1.8rem;
-        font-weight: 800;
-        letter-spacing: 2px;
+    .hero-title {
+        font-size: 2.8rem;
+        font-weight: 900;
+        letter-spacing: 3px;
         color: #ffffff;
         margin: 0;
-        font-family: 'Times New Roman', sans-serif !important;
+        font-family: 'Impact', 'Trebuchet MS', sans-serif !important;
+        text-transform: uppercase;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.8);
     }
-    .header-sub {
-        font-size: 0.85rem;
+    .hero-sub {
+        font-size: 0.95rem;
         color: #8b9bb4;
-        margin-top: 4px;
-        letter-spacing: 1px;
+        margin-top: 8px;
+        letter-spacing: 1.5px;
+        font-weight: 700;
+        text-transform: uppercase;
     }
 
     /* ターゲットバッジ */
     .target-badge {
-        background: #0f1923;
+        background: #090f16;
         border: 1px solid #1e2d3d;
         border-left: 3px solid #2b7fff;
         padding: 8px 16px;
-        border-radius: 3px;
+        border-radius: 2px;
         display: inline-block;
         font-size: 0.85rem;
         color: #8b9bb4;
         margin-bottom: 25px;
-        letter-spacing: 1px;
+        letter-spacing: 1.5px;
     }
     .target-badge strong {
         color: #ffffff;
         font-size: 1.0rem;
     }
 
-    /* メトリックカード (枠線・赤青ボーダー) */
+    /* メトリックカード */
     .kpi-card {
-        background: #0d151e;
+        background: #090f16;
         border: 1px solid #1e2d3d;
         border-radius: 4px;
-        padding: 18px 20px;
+        padding: 18px 22px;
         height: 100%;
     }
-    .kpi-card.red-border {
-        border-left: 3px solid #ff4655;
-    }
-    .kpi-card.blue-border {
-        border-left: 3px solid #2b7fff;
-    }
+    .kpi-card.red-border { border-left: 3px solid #ff4655; }
+    .kpi-card.blue-border { border-left: 3px solid #2b7fff; }
+    
     .kpi-label {
         font-size: 0.85rem;
         color: #8b9bb4;
         margin-bottom: 8px;
-        font-weight: 600;
+        font-weight: 700;
     }
     .kpi-value {
-        font-size: 2.2rem;
-        font-weight: 800;
+        font-size: 2.8rem;
+        font-weight: 900;
         color: #ffffff;
-        font-family: 'Times New Roman', sans-serif !important;
-        line-height: 1.1;
+        font-family: 'Impact', 'Trebuchet MS', sans-serif !important;
+        line-height: 1.0;
+        letter-spacing: 1px;
     }
     .kpi-delta {
-        font-size: 0.8rem;
-        margin-top: 8px;
-        font-weight: 500;
+        font-size: 0.82rem;
+        margin-top: 10px;
+        font-weight: 700;
     }
     .kpi-delta.green { color: #00f0ff; }
     .kpi-delta.red { color: #ff4655; }
@@ -109,29 +121,50 @@ st.markdown("""
     /* セクションタイトル */
     .section-tag {
         color: #ff4655;
-        font-size: 0.75rem;
-        font-weight: 800;
+        font-size: 0.78rem;
+        font-weight: 900;
         letter-spacing: 2px;
         margin-top: 30px;
-        margin-bottom: 5px;
+        margin-bottom: 4px;
     }
     .section-title {
-        font-size: 1.3rem;
-        font-weight: 700;
+        font-size: 1.35rem;
+        font-weight: 800;
         color: #ffffff;
         margin-bottom: 15px;
     }
 
-    /* データフレーム・表のスタイル調整 */
-    div.stDataFrame {
-        border: 1px solid #1e2d3d !important;
-        border-radius: 4px !important;
+    /* カスタムバー表示 */
+    .custom-bar-container {
+        background: #090f16;
+        border: 1px solid #1e2d3d;
+        padding: 22px 26px;
+        border-radius: 4px;
+        margin-bottom: 25px;
     }
+    .bar-row { margin-bottom: 18px; }
+    .bar-row:last-child { margin-bottom: 0; }
+    .bar-label-container {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 6px;
+        font-size: 0.92rem;
+        font-weight: 700;
+    }
+    .bar-track {
+        background: #152230;
+        height: 24px;
+        border-radius: 3px;
+        overflow: hidden;
+    }
+    .bar-fill-red { background: linear-gradient(90deg, #ff4655 0%, #ff6b78 100%); height: 100%; border-radius: 3px; }
+    .bar-fill-blue { background: linear-gradient(90deg, #2b7fff 0%, #5299ff 100%); height: 100%; border-radius: 3px; }
+    .bar-fill-gray { background: linear-gradient(90deg, #4a5d73 0%, #70849c 100%); height: 100%; border-radius: 3px; }
 </style>
 """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# パスワード認証 (簡易ロック)
+# パスワード保護 (簡易ロック)
 # ---------------------------------------------------------
 user_input = st.text_input("🔒 アクセスパスワードを入力", type="password")
 normalized_input = user_input.strip().upper().replace(" ", "_")
@@ -142,17 +175,20 @@ if normalized_input != "AIM_FOR_NUMBER_1":
     st.stop()
 
 # ---------------------------------------------------------
-# ヘッダーエリア（ロゴ＋タイトル）
+# ヘッダービジュアルエリア（VALORANTキービジュアル・ロゴ搭載）
 # ---------------------------------------------------------
 st.markdown("""
-<div class="header-card">
-    <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 20L45 50L20 80H35L60 50L35 20H20Z" fill="#FF4655"/>
-        <path d="M50 20L75 50L50 80H65L90 50L65 20H50Z" fill="#FF4655"/>
-    </svg>
-    <div>
-        <div class="header-title">QT DIG ANALYTICS</div>
-        <div class="header-sub">VALORANT 試合分析ダッシュボード / コーチ提案指標プロトタイプ</div>
+<div class="valorant-hero-header">
+    <div class="hero-title-area">
+        <svg width="55" height="55" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 20H45V35H30V65H45V80H15V20Z" fill="#FF4655"/>
+            <path d="M55 20H85V80H55V65H70V35H55V20Z" fill="#FF4655"/>
+            <path d="M35 42H65V58H35V42Z" fill="#FF4655"/>
+        </svg>
+        <div>
+            <div class="hero-title">QT DIG ANALYTICS</div>
+            <div class="hero-sub">VALORANT OFFICIAL MATCH ANALYSIS & PERFORMANCE PROTOTYPE</div>
+        </div>
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -208,18 +244,42 @@ with c3:
 st.write("")
 
 # ---------------------------------------------------------
-# SECTION 01 : FK / FD 相関分析
+# SECTION 01 : FK / FD 相関分析（美しく見やすいカスタムバー）
 # ---------------------------------------------------------
 st.markdown("""
 <div class="section-tag">SECTION 01 / OPENING DUEL</div>
 <div class="section-title">ファーストキル (FK) / ファーストデス (FD) 発生時のラウンド勝率</div>
-""", unsafe_allow_html=True)
 
-df_fk = pd.DataFrame({
-    '状況': ['FD発生時', 'FK獲得時', '通常展開'],
-    'ラウンド勝率 (%)': [24.4, 78.3, 51.2]
-})
-st.bar_chart(data=df_fk, x='状況', y='ラウンド勝率 (%)')
+<div class="custom-bar-container">
+    <div class="bar-row">
+        <div class="bar-label-container">
+            <span style="color: #ff4655;">ファーストキル (FK) 獲得時</span>
+            <span style="color: #ffffff; font-weight: 800;">78.3%</span>
+        </div>
+        <div class="bar-track">
+            <div class="bar-fill-red" style="width: 78.3%;"></div>
+        </div>
+    </div>
+    <div class="bar-row">
+        <div class="bar-label-container">
+            <span style="color: #8b9bb4;">通常展開 (FK/FDなし)</span>
+            <span style="color: #ffffff; font-weight: 800;">51.2%</span>
+        </div>
+        <div class="bar-track">
+            <div class="bar-fill-gray" style="width: 51.2%;"></div>
+        </div>
+    </div>
+    <div class="bar-row">
+        <div class="bar-label-container">
+            <span style="color: #2b7fff;">ファーストデス (FD) 発生時</span>
+            <span style="color: #ffffff; font-weight: 800;">24.4%</span>
+        </div>
+        <div class="bar-track">
+            <div class="bar-fill-blue" style="width: 24.4%;"></div>
+        </div>
+    </div>
+</div>
+""", unsafe_allow_html=True)
 
 st.write("---")
 
@@ -304,4 +364,14 @@ st.dataframe(df_agent, use_container_width=True)
 st.write("---")
 
 # ---------------------------------------------------------
-# SECTION
+# SECTION 06 : クラッチ成功率 (1vsX)
+# ---------------------------------------------------------
+st.markdown("""
+<div class="section-tag">SECTION 06 / CLUTCH SITUATIONS</div>
+<div class="section-title">クラッチ状況（人数不利克服）成功率</div>
+""", unsafe_allow_html=True)
+
+col_c1, col_c2, col_c3 = st.columns(3)
+col_c1.metric("1 vs 1 勝率", "45.0%", "勝敗を分ける局面")
+col_c2.metric("1 vs 2 勝率", "22.5%", "高水準")
+col_c3.metric("1 vs 3+ 成功数", "3回", "直近20試合")
