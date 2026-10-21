@@ -19,8 +19,8 @@ st.markdown("""
 st.title("🎮 QT DIG VALORANT 試合分析ダッシュボード")
 
 # パスワード保護（簡易ロック機能）
-st.sidebar.header("🔒 セキュリティ設定")
-password = st.sidebar.text_input("アクセスパスワードを入力", type="password")
+st.header("🔒 セキュリティ設定")
+password = st.text_input("アクセスパスワードを入力", type="password")
 
 if password != "AIM_FOR_NUMBER_1":
     st.warning("🔒 パスワードを入力してください")
