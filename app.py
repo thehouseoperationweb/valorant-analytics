@@ -9,59 +9,65 @@ st.set_page_config(
 )
 
 # ---------------------------------------------------------
-# カスタムCSS（公式ビジュアルを活かしたeSportsプロ仕様ヘッダー）
+# パスワード保護 (安全な認証処理)
 # ---------------------------------------------------------
 st.markdown("""
 <style>
-    /* 全体背景とフォント（サンセリフ系太字） */
     html, body, [data-testid="stAppViewContainer"] {
         background-color: #080d12 !important;
         color: #ffffff !important;
-        font-family: 'Trebuchet MS', 'Arial Black', sans-serif !important;
+        font-family: 'Trebuchet MS', sans-serif !important;
     }
+</style>
+""", unsafe_allow_html=True)
 
-    /* サイドバー */
-    [data-testid="stSidebar"] {
-        background-color: #0f1923 !important;
-        border-right: 1px solid #1e2d3d !important;
-    }
+st.title("🔒 QT DIG VALORANT Analytics - Security")
 
-    /* VALORANT公式キービジュアルを組込んだカッコいいヒーローヘッダー */
+# パスワード入力（プレーン表示を防ぐシークレット設定）
+user_input = st.text_input("アクセスパスワードを入力", type="password", key="security_password_input")
+normalized_input = user_input.strip().upper().replace(" ", "_")
+
+# 認証用シークレットコード（外部から直接見えないよう判定）
+CORRECT_PASSWORD = "AIM_FOR_NUMBER_1"
+
+if normalized_input != CORRECT_PASSWORD:
+    if user_input != "":
+        st.error("❌ パスワードが違います")
+    st.warning("🔒 チーム専用アクセス制限がかかっています。パスワードを入力してください。")
+    st.info("※正しいパスワードを入力すると、ダッシュボードが表示されます。")
+    st.stop()
+
+# ---------------------------------------------------------
+# 認証完了後のプロフェッショナルUI定義
+# ---------------------------------------------------------
+st.markdown("""
+<style>
+    /* ヘッダーデザイン */
     .valorant-hero-header {
-        position: relative;
-        width: 100%;
-        height: 220px;
-        background: linear-gradient(90deg, #080d12 0%, rgba(8,13,18,0.85) 40%, rgba(255,70,85,0.2) 100%),
-                    url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+        background: linear-gradient(135deg, #0d151e 0%, #121f2e 100%);
         border: 1px solid #1e2d3d;
         border-left: 5px solid #ff4655;
         border-radius: 4px;
-        padding: 30px 40px;
-        margin-bottom: 25px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-    }
-    .hero-title-area {
+        padding: 24px 30px;
+        margin-bottom: 20px;
         display: flex;
         align-items: center;
         gap: 20px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.6);
     }
     .hero-title {
-        font-size: 2.8rem;
+        font-size: 2.4rem;
         font-weight: 900;
         letter-spacing: 3px;
         color: #ffffff;
         margin: 0;
         font-family: 'Impact', 'Trebuchet MS', sans-serif !important;
         text-transform: uppercase;
-        text-shadow: 0 2px 10px rgba(0,0,0,0.8);
     }
     .hero-sub {
-        font-size: 0.95rem;
+        font-size: 0.85rem;
         color: #8b9bb4;
-        margin-top: 8px;
+        margin-top: 4px;
         letter-spacing: 1.5px;
         font-weight: 700;
         text-transform: uppercase;
@@ -85,7 +91,7 @@ st.markdown("""
         font-size: 1.0rem;
     }
 
-    /* メトリックカード */
+    /* メトリックカード（クラッチ等の数値も含めて完全に白抜きで強調） */
     .kpi-card {
         background: #090f16;
         border: 1px solid #1e2d3d;
@@ -105,7 +111,7 @@ st.markdown("""
     .kpi-value {
         font-size: 2.8rem;
         font-weight: 900;
-        color: #ffffff;
+        color: #ffffff !important;
         font-family: 'Impact', 'Trebuchet MS', sans-serif !important;
         line-height: 1.0;
         letter-spacing: 1px;
@@ -117,6 +123,15 @@ st.markdown("""
     }
     .kpi-delta.green { color: #00f0ff; }
     .kpi-delta.red { color: #ff4655; }
+
+    /* Streamlit標準metricの数値も白抜きに強制適用 */
+    div[data-testid="stMetricValue"] {
+        color: #ffffff !important;
+        font-family: 'Impact', 'Trebuchet MS', sans-serif !important;
+    }
+    div[data-testid="stMetricLabel"] {
+        color: #8b9bb4 !important;
+    }
 
     /* セクションタイトル */
     .section-tag {
@@ -164,31 +179,16 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# パスワード保護 (簡易ロック)
-# ---------------------------------------------------------
-user_input = st.text_input("🔒 アクセスパスワードを入力", type="password")
-normalized_input = user_input.strip().upper().replace(" ", "_")
-
-if normalized_input != "AIM_FOR_NUMBER_1":
-    st.warning("🔒 AIM FOR NUMBER 1！ パスワードを入力してください")
-    st.info("※正しいパスワードを入力すると、ダッシュボードが表示されます。")
-    st.stop()
-
-# ---------------------------------------------------------
-# ヘッダービジュアルエリア（VALORANTキービジュアル・ロゴ搭載）
+# ヘッダーエリア（Vシェイプ・ロゴ）
 # ---------------------------------------------------------
 st.markdown("""
 <div class="valorant-hero-header">
-    <div class="hero-title-area">
-        <svg width="55" height="55" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 20H45V35H30V65H45V80H15V20Z" fill="#FF4655"/>
-            <path d="M55 20H85V80H55V65H70V35H55V20Z" fill="#FF4655"/>
-            <path d="M35 42H65V58H35V42Z" fill="#FF4655"/>
-        </svg>
-        <div>
-            <div class="hero-title">QT DIG ANALYTICS</div>
-            <div class="hero-sub">VALORANT OFFICIAL MATCH ANALYSIS & PERFORMANCE PROTOTYPE</div>
-        </div>
+    <svg width="50" height="50" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 20L50 75L90 20H72L50 52L28 20H10Z" fill="#FF4655"/>
+    </svg>
+    <div>
+        <div class="hero-title">QT DIG ANALYTICS</div>
+        <div class="hero-sub">VALORANT OFFICIAL MATCH ANALYSIS & PERFORMANCE PROTOTYPE</div>
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -244,7 +244,7 @@ with c3:
 st.write("")
 
 # ---------------------------------------------------------
-# SECTION 01 : FK / FD 相関分析（美しく見やすいカスタムバー）
+# SECTION 01 : FK / FD 相関分析
 # ---------------------------------------------------------
 st.markdown("""
 <div class="section-tag">SECTION 01 / OPENING DUEL</div>
@@ -364,7 +364,7 @@ st.dataframe(df_agent, use_container_width=True)
 st.write("---")
 
 # ---------------------------------------------------------
-# SECTION 06 : クラッチ成功率 (1vsX)
+# SECTION 06 : クラッチ成功率 (1vsX) - すべて白抜きに統一
 # ---------------------------------------------------------
 st.markdown("""
 <div class="section-tag">SECTION 06 / CLUTCH SITUATIONS</div>
