@@ -40,26 +40,21 @@ if normalized_input != CORRECT_PASSWORD:
 # ---------------------------------------------------------
 st.markdown("""
 <style>
+    /* ご提示いただいた公式アートワークをそのまま活かすヒーローヘッダー */
     .valorant-hero-header {
         position: relative;
         width: 100%;
-        height: 240px;
-        background: linear-gradient(90deg, rgba(8,13,18,0.95) 0%, rgba(8,13,18,0.7) 50%, rgba(255,70,85,0.3) 100%),
+        height: 320px;
+        background: linear-gradient(180deg, rgba(8,13,18,0.2) 0%, rgba(8,13,18,0.85) 90%),
                     url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
         border: 1px solid #1e2d3d;
-        border-left: 5px solid #ff4655;
         border-radius: 4px;
-        padding: 30px 40px;
-        margin-bottom: 20px;
+        padding: 40px;
+        margin-bottom: 25px;
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.7);
-    }
-    .hero-title-area {
-        display: flex;
-        align-items: center;
-        gap: 24px;
+        flex-direction: column;
+        justify-content: flex-end;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.8);
     }
     .hero-title {
         font-size: 2.8rem;
@@ -69,15 +64,16 @@ st.markdown("""
         margin: 0;
         font-family: 'Impact', 'Trebuchet MS', sans-serif !important;
         text-transform: uppercase;
-        text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        text-shadow: 0 2px 10px rgba(0,0,0,0.9);
     }
     .hero-sub {
-        font-size: 0.88rem;
-        color: #8b9bb4;
+        font-size: 0.9rem;
+        color: #ff4655;
         margin-top: 6px;
-        letter-spacing: 1.5px;
-        font-weight: 700;
+        letter-spacing: 2px;
+        font-weight: 800;
         text-transform: uppercase;
+        text-shadow: 0 2px 6px rgba(0,0,0,0.9);
     }
     .target-badge {
         background: #090f16;
@@ -175,20 +171,13 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# ヘッダーエリア（QT DIG ロゴ ＆ キービジュアル背景）
+# ヘッダーエリア（キービジュアル画像をそのまま配置）
 # ---------------------------------------------------------
 st.markdown("""
 <div class="valorant-hero-header">
-    <div class="hero-title-area">
-        <svg width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 2px 8px rgba(0,0,0,0.8));">
-            <path d="M5 10H38V30H22V70H38V90H5V10Z" fill="#FF4655"/>
-            <path d="M48 10H75V40H62V30H62V70H75V60H90V90H48V10Z" fill="#FF4655"/>
-            <path d="M62 42H85V58H62V42Z" fill="#FF4655"/>
-        </svg>
-        <div>
-            <div class="hero-title">QT DIG ANALYTICS</div>
-            <div class="hero-sub">VALORANT OFFICIAL MATCH ANALYSIS & PERFORMANCE PROTOTYPE</div>
-        </div>
+    <div>
+        <div class="hero-title">QT DIG ANALYTICS</div>
+        <div class="hero-sub">VALORANT OFFICIAL MATCH ANALYSIS & PERFORMANCE PROTOTYPE</div>
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -373,5 +362,4 @@ st.markdown("""
 
 col_c1, col_c2, col_c3 = st.columns(3)
 col_c1.metric("1 vs 1 勝率", "45.0%", "勝敗を分ける局面")
-col_c2.metric("1 vs 2 勝率", "22.5%", "高水準")
-col_c3.metric("1 vs 3+ 成功数", "3回", "直近20試合")
+col_c2.metric("1
