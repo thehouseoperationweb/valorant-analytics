@@ -21,12 +21,15 @@ st.title("🎮 QT DIG VALORANT 試合分析ダッシュボード")
 
 # パスワード保護（簡易ロック機能）
 st.header("🔒 セキュリティ設定")
-password = st.text_input("アクセスパスワードを入力", type="password")
+user_input = st.text_input("アクセスパスワードを入力", type="password")
 
-if password != "AIM_FOR_NUMBER_1":
+# 入力文字の表記揺れ（スペース / アンダースコア / 大小文字）を統一して判定
+normalized_input = user_input.strip().upper().replace(" ", "_")
+
+if normalized_input != "AIM_FOR_NUMBER_1":
     st.warning("🔒 AIM FOR NUMBER 1！ パスワードを入力してください")
     st.info("※正しいパスワードを入力すると、ダッシュボードが表示されます。")
-    st.stop()  # 未認証時はここで処理を停止
+    st.stop()
 
 # --- ここからログイン後の表示内容 ---
 st.success("🏆 認証完了：世界一位への軌跡")
