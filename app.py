@@ -23,7 +23,7 @@ st.sidebar.header("🔒 セキュリティ設定")
 password = st.sidebar.text_input("アクセスパスワードを入力", type="password")
 
 if password != "AIM_FOR_NUMBER_1":
-    st.warning("🔒 AIM FOR NUMBER 1！ パスワードを入力してください")
+    st.warning("🔒 パスワードを入力してください")
     st.info("※正しいパスワードを入力すると、ダッシュボードが表示されます。")
 else:
     st.success("🏆 認証完了：世界一位への軌跡")
