@@ -38,10 +38,10 @@ if normalized_input != CORRECT_PASSWORD:
 # ---------------------------------------------------------
 # 認証完了後のプロフェッショナルUI定義
 # ---------------------------------------------------------
-st.markdown(f"""
+st.markdown("""
 <style>
     /* VALORANT公式キービジュアルを背景にした圧倒的ヒーローヘッダー */
-    .valorant-hero-header {{
+    .valorant-hero-header {
         position: relative;
         width: 100%;
         height: 240px;
@@ -57,12 +57,12 @@ st.markdown(f"""
         justify-content: space-between;
         box-shadow: 0 8px 32px rgba(0,0,0,0.7);
     }
-    .hero-title-area {{
+    .hero-title-area {
         display: flex;
         align-items: center;
         gap: 24px;
-    }}
-    .hero-title {{
+    }
+    .hero-title {
         font-size: 2.8rem;
         font-weight: 900;
         letter-spacing: 3px;
@@ -71,18 +71,18 @@ st.markdown(f"""
         font-family: 'Impact', 'Trebuchet MS', sans-serif !important;
         text-transform: uppercase;
         text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-    }}
-    .hero-sub {{
+    }
+    .hero-sub {
         font-size: 0.88rem;
         color: #8b9bb4;
         margin-top: 6px;
         letter-spacing: 1.5px;
         font-weight: 700;
         text-transform: uppercase;
-    }}
+    }
 
     /* ターゲットバッジ */
-    .target-badge {{
+    .target-badge {
         background: #090f16;
         border: 1px solid #1e2d3d;
         border-left: 3px solid #2b7fff;
@@ -93,105 +93,106 @@ st.markdown(f"""
         color: #8b9bb4;
         margin-bottom: 25px;
         letter-spacing: 1.5px;
-    }}
-    .target-badge strong {{
+    }
+    .target-badge strong {
         color: #ffffff;
         font-size: 1.0rem;
-    }}
+    }
 
     /* メトリックカード（白抜き対応） */
-    .kpi-card {{
+    .kpi-card {
         background: #090f16;
         border: 1px solid #1e2d3d;
         border-radius: 4px;
         padding: 18px 22px;
         height: 100%;
-    }}
-    .kpi-card.red-border {{ border-left: 3px solid #ff4655; }}
-    .kpi-card.blue-border {{ border-left: 3px solid #2b7fff; }}
+    }
+    .kpi-card.red-border { border-left: 3px solid #ff4655; }
+    .kpi-card.blue-border { border-left: 3px solid #2b7fff; }
     
-    .kpi-label {{
+    .kpi-label {
         font-size: 0.85rem;
         color: #8b9bb4;
         margin-bottom: 8px;
         font-weight: 700;
-    }}
-    .kpi-value {{
+    }
+    .kpi-value {
         font-size: 2.8rem;
         font-weight: 900;
         color: #ffffff !important;
         font-family: 'Impact', 'Trebuchet MS', sans-serif !important;
         line-height: 1.0;
         letter-spacing: 1px;
-    }}
-    .kpi-delta {{
+    }
+    .kpi-delta {
         font-size: 0.82rem;
         margin-top: 10px;
         font-weight: 700;
-    }}
-    .kpi-delta.green {{ color: #00f0ff; }}
-    .kpi-delta.red {{ color: #ff4655; }}
+    }
+    .kpi-delta.green { color: #00f0ff; }
+    .kpi-delta.red { color: #ff4655; }
 
-    div[data-testid="stMetricValue"] {{
+    div[data-testid="stMetricValue"] {
         color: #ffffff !important;
         font-family: 'Impact', 'Trebuchet MS', sans-serif !important;
-    }}
-    div[data-testid="stMetricLabel"] {{
+    }
+    div[data-testid="stMetricLabel"] {
         color: #8b9bb4 !important;
-    }}
+    }
 
     /* セクションタイトル */
-    .section-tag {{
+    .section-tag {
         color: #ff4655;
         font-size: 0.78rem;
         font-weight: 900;
         letter-spacing: 2px;
         margin-top: 30px;
         margin-bottom: 4px;
-    }}
-    .section-title {{
+    }
+    .section-title {
         font-size: 1.35rem;
         font-weight: 800;
         color: #ffffff;
         margin-bottom: 15px;
-    }}
+    }
 
     /* カスタムバー表示 */
-    .custom-bar-container {{
+    .custom-bar-container {
         background: #090f16;
         border: 1px solid #1e2d3d;
         padding: 22px 26px;
         border-radius: 4px;
         margin-bottom: 25px;
-    }}
-    .bar-row {{ margin-bottom: 18px; }}
-    .bar-row:last-child {{ margin-bottom: 0; }}
-    .bar-label-container {{
+    }
+    .bar-row { margin-bottom: 18px; }
+    .bar-row:last-child { margin-bottom: 0; }
+    .bar-label-container {
         display: flex;
         justify-content: space-between;
         margin-bottom: 6px;
         font-size: 0.92rem;
         font-weight: 700;
-    }}
-    .bar-track {{
+    }
+    .bar-track {
         background: #152230;
         height: 24px;
         border-radius: 3px;
         overflow: hidden;
-    }}
-    .bar-fill-red {{ background: linear-gradient(90deg, #ff4655 0%, #ff6b78 100%); height: 100%; border-radius: 3px; }}
-    .bar-fill-blue {{ background: linear-gradient(90deg, #2b7fff 0%, #5299ff 100%); height: 100%; border-radius: 3px; }}
-    .bar-fill-gray {{ background: linear-gradient(90deg, #4a5d73 0%, #70849c 100%); height: 100%; border-radius: 3px; }}
+    }
+    .bar-fill-red { background: linear-gradient(90deg, #ff4655 0%, #ff6b78 100%); height: 100%; border-radius: 3px; }
+    .bar-fill-blue { background: linear-gradient(90deg, #2b7fff 0%, #5299ff 100%); height: 100%; border-radius: 3px; }
+    .bar-fill-gray { background: linear-gradient(90deg, #4a5d73 0%, #70849c 100%); height: 100%; border-radius: 3px; }
 </style>
 """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# ヘッダーエリア（QT DIG ロゴ ＆ VALORANT公式キービジュアル背景）
+# ヘッダーエリア（QT DIG ロゴ ＆ キービジュアル背景）
 # ---------------------------------------------------------
 st.markdown("""
 <div class="valorant-hero-header">
     <div class="hero-title-area">
-        <!-- 背景透過済みの完璧なQT DIGロゴSVG -->
         <svg width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 2px 8px rgba(0,0,0,0.8));">
             <path d="M5 10H38V30H22V70H38V90H5V10Z" fill="#FF4655"/>
-            <path d="M48 10H
+            <path d="M48 10H75V40H62V30H62V70H75V60H90V90H48V10Z" fill="#FF4655"/>
+            <path d="M62 42H85V58H62V42Z" fill="#FF4655"/>
+        </
