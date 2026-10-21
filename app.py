@@ -40,41 +40,44 @@ if normalized_input != CORRECT_PASSWORD:
 # ---------------------------------------------------------
 st.markdown("""
 <style>
-    /* ご提示いただいた公式アートワークをそのまま活かすヒーローヘッダー */
-    .valorant-hero-header {
-        position: relative;
+    /* ヘッダー画像（VALORANT公式アートワークをそのまま・切り取りなしで配置） */
+    .valorant-top-banner {
         width: 100%;
-        height: 320px;
-        background: linear-gradient(180deg, rgba(8,13,18,0.2) 0%, rgba(8,13,18,0.85) 90%),
-                    url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+        height: 380px;
+        background: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
         border: 1px solid #1e2d3d;
         border-radius: 4px;
-        padding: 40px;
         margin-bottom: 25px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
         box-shadow: 0 8px 32px rgba(0,0,0,0.8);
     }
+
+    /* タイトルセクションのロゴ並び */
+    .title-flex-container {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
     .hero-title {
-        font-size: 2.8rem;
+        font-size: 2.6rem;
         font-weight: 900;
         letter-spacing: 3px;
         color: #ffffff;
         margin: 0;
         font-family: 'Impact', 'Trebuchet MS', sans-serif !important;
         text-transform: uppercase;
-        text-shadow: 0 2px 10px rgba(0,0,0,0.9);
     }
     .hero-sub {
-        font-size: 0.9rem;
+        font-size: 0.88rem;
         color: #ff4655;
-        margin-top: 6px;
+        margin-top: 4px;
         letter-spacing: 2px;
         font-weight: 800;
         text-transform: uppercase;
-        text-shadow: 0 2px 6px rgba(0,0,0,0.9);
     }
+
+    /* ターゲットバッジ */
     .target-badge {
         background: #090f16;
         border: 1px solid #1e2d3d;
@@ -84,6 +87,7 @@ st.markdown("""
         display: inline-block;
         font-size: 0.85rem;
         color: #8b9bb4;
+        margin-top: 15px;
         margin-bottom: 25px;
         letter-spacing: 1.5px;
     }
@@ -91,6 +95,8 @@ st.markdown("""
         color: #ffffff;
         font-size: 1.0rem;
     }
+
+    /* メトリックカード（白抜き対応） */
     .kpi-card {
         background: #090f16;
         border: 1px solid #1e2d3d;
@@ -100,6 +106,7 @@ st.markdown("""
     }
     .kpi-card.red-border { border-left: 3px solid #ff4655; }
     .kpi-card.blue-border { border-left: 3px solid #2b7fff; }
+    
     .kpi-label {
         font-size: 0.85rem;
         color: #8b9bb4;
@@ -121,6 +128,7 @@ st.markdown("""
     }
     .kpi-delta.green { color: #00f0ff; }
     .kpi-delta.red { color: #ff4655; }
+
     div[data-testid="stMetricValue"] {
         color: #ffffff !important;
         font-family: 'Impact', 'Trebuchet MS', sans-serif !important;
@@ -128,6 +136,8 @@ st.markdown("""
     div[data-testid="stMetricLabel"] {
         color: #8b9bb4 !important;
     }
+
+    /* セクションタイトル */
     .section-tag {
         color: #ff4655;
         font-size: 0.78rem;
@@ -142,6 +152,8 @@ st.markdown("""
         color: #ffffff;
         margin-bottom: 15px;
     }
+
+    /* カスタムバー表示 */
     .custom-bar-container {
         background: #090f16;
         border: 1px solid #1e2d3d;
@@ -171,10 +183,21 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# ヘッダーエリア（キービジュアル画像をそのまま配置）
+# 1. 一番上にヘッダー画像をそのまま配置
+# ---------------------------------------------------------
+st.markdown('<div class="valorant-top-banner"></div>', unsafe_allow_html=True)
+
+# ---------------------------------------------------------
+# 2. タイトルの前にQT DIGのロゴ（背景透過）を配置
 # ---------------------------------------------------------
 st.markdown("""
-<div class="valorant-hero-header">
+<div class="title-flex-container">
+    <!-- QT DIGのロゴ（背景切り抜き・透過） -->
+    <svg width="55" height="55" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 2px 6px rgba(0,0,0,0.8));">
+        <path d="M40 20H180V120H110V380H180V480H40V20Z" fill="#FF4655"/>
+        <path d="M220 20H360V180H290V120H290V380H360V320H460V480H220V20Z" fill="#FF4655"/>
+        <path d="M290 200H420V300H290V200Z" fill="#FF4655"/>
+    </svg>
     <div>
         <div class="hero-title">QT DIG ANALYTICS</div>
         <div class="hero-sub">VALORANT OFFICIAL MATCH ANALYSIS & PERFORMANCE PROTOTYPE</div>
@@ -306,60 +329,4 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 df_econ = pd.DataFrame({
-    '自軍装備状況': ['フルバイ (4300+)', 'フルバイ (4300+)', 'ハーフバイ (2000-3000)', 'エコ / 節約 (0-2000)'],
-    '敵軍装備状況': ['フルバイ (重装・主力銃)', 'エコ / 相手弱武装', 'フルバイ (強武装)', 'エコ / 同等武装'],
-    '交戦ラウンド勝率 (%)': [55.0, 88.0, 31.0, 60.0],
-    '推奨立ち回り': ['標準展開・遅めエントリー', '強気なファーストコンタクト', 'グループアップ・リテイク狙い', '集団ラッシュ / 武器拾い']
-})
-st.dataframe(df_econ, use_container_width=True)
-
-st.write("---")
-
-# ---------------------------------------------------------
-# SECTION 04 : マップ別 & サイド別パフォーマンス
-# ---------------------------------------------------------
-st.markdown("""
-<div class="section-tag">SECTION 04 / MAP & SIDE PERFORMANCE</div>
-<div class="section-title">マップ別 ＆ サイド別（攻撃/防衛）勝率</div>
-""", unsafe_allow_html=True)
-
-df_map = pd.DataFrame({
-    'マップ': ['アセンド', 'バインド', 'ヘイヴン', 'サンセット'],
-    '攻撃(ATK)勝率': ['62.5%', '48.0%', '55.2%', '70.0%'],
-    '防衛(DEF)勝率': ['68.0%', '58.3%', '60.0%', '52.4%'],
-    'FK獲得率': ['18.2%', '14.5%', '21.0%', '19.5%']
-})
-st.dataframe(df_map, use_container_width=True)
-
-st.write("---")
-
-# ---------------------------------------------------------
-# SECTION 05 : エージェント別スタッツ
-# ---------------------------------------------------------
-st.markdown("""
-<div class="section-tag">SECTION 05 / AGENT STATS</div>
-<div class="section-title">エージェント別パフォーマンス (ACS / K/D / KAST)</div>
-""", unsafe_allow_html=True)
-
-df_agent = pd.DataFrame({
-    'エージェント': ['ジェット', 'レイズ', 'サイファー'],
-    'ピック率': ['50%', '30%', '20%'],
-    '平均ACS': [245, 220, 185],
-    'K/D': [1.25, 1.10, 0.95],
-    'KAST (%)': [74.5, 71.0, 78.2]
-})
-st.dataframe(df_agent, use_container_width=True)
-
-st.write("---")
-
-# ---------------------------------------------------------
-# SECTION 06 : クラッチ成功率 (1vsX)
-# ---------------------------------------------------------
-st.markdown("""
-<div class="section-tag">SECTION 06 / CLUTCH SITUATIONS</div>
-<div class="section-title">クラッチ状況（人数不利克服）成功率</div>
-""", unsafe_allow_html=True)
-
-col_c1, col_c2, col_c3 = st.columns(3)
-col_c1.metric("1 vs 1 勝率", "45.0%", "勝敗を分ける局面")
-col_c2.metric("1
+    '自軍装備状況
