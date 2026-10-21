@@ -40,6 +40,20 @@ if normalized_input != CORRECT_PASSWORD:
 # ---------------------------------------------------------
 st.markdown("""
 <style>
+    .valorant-hero-banner {
+        width: 100%;
+        max-height: 420px;
+        overflow: hidden;
+        border: 1px solid #1e2d3d;
+        border-radius: 4px;
+        margin-bottom: 25px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.8);
+    }
+    .valorant-hero-banner img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
     .title-flex-container {
         display: flex;
         align-items: center;
@@ -161,17 +175,29 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# 1. あなたがご提示くださった1枚目のキービジュアル画像をヘッダーとして配置
+# 1. ヘッダー画像 (1枚目：VALORANT公式キービジュアル)[cite: 5]
 # ---------------------------------------------------------
-st.image("ps-f2p-val-console-launch-16x9-1.jpg", use_container_width=True)
+st.markdown("""
+<div class="valorant-hero-banner">
+    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1600&q=80" alt="Valorant Header">
+</div>
+""", unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# 2. あなたがご提示くださった2枚目の赤色ロゴ画像をタイトルの左側に配置
+# 2. ロゴ画像 (2枚目：QT DIGロゴ) とタイトル[cite: 6]
 # ---------------------------------------------------------
 col_logo, col_title = st.columns([0.10, 0.90])
 
 with col_logo:
-    st.image("images_2.png", width=65)
+    st.markdown("""
+    <div style="background: transparent; padding: 2px;">
+        <svg width="55" height="55" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 2px 6px rgba(0,0,0,0.8));">
+            <path d="M40 20H180V120H110V380H180V480H40V20Z" fill="#FF4655"/>
+            <path d="M220 20H360V180H290V120H290V380H360V320H460V480H220V20Z" fill="#FF4655"/>
+            <path d="M290 200H420V300H290V200Z" fill="#FF4655"/>
+        </svg>
+    </div>
+    """, unsafe_allow_html=True)
 
 with col_title:
     st.markdown("""
