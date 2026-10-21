@@ -161,18 +161,17 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# 1. 1枚目の画像（VALORANT公式キービジュアル）をヘッダーとしてそのまま配置
+# 1. あなたがご提示くださった1枚目のキービジュアル画像をヘッダーとして配置
 # ---------------------------------------------------------
-st.image("https://raw.githubusercontent.com/thehouseoperationweb/valorant-analytics/main/header.jpg" if False else "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1600&q=80", use_container_width=True)
+st.image("ps-f2p-val-console-launch-16x9-1.jpg", use_container_width=True)
 
 # ---------------------------------------------------------
-# 2. 2枚目の画像（QT DIGロゴ）をタイトルの左側に配置
+# 2. あなたがご提示くださった2枚目の赤色ロゴ画像をタイトルの左側に配置
 # ---------------------------------------------------------
 col_logo, col_title = st.columns([0.10, 0.90])
 
 with col_logo:
-    # 2枚目の赤色ロゴ画像を表示
-    st.image("https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=200&q=80", width=65)
+    st.image("images_2.png", width=65)
 
 with col_title:
     st.markdown("""
